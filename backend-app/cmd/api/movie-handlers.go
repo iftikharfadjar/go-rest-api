@@ -15,6 +15,8 @@ func (app *application) getOneMovie(w http.ResponseWriter, r *http.Request){
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil{
 		app.logger.Print(errors.New("Invalid id Parameter"))
+		app.errorJSON(w, err)
+		return
 	}
 	
 	movie := models.Movie {
