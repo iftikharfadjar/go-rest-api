@@ -10,6 +10,7 @@ import (
 	"database/sql"
 	"context"
 	_ "../../mysql-1.2"
+	"../../models"
 )
 
 
@@ -32,6 +33,7 @@ type AppStatus struct {
 type application struct{
 	config config
 	logger *log.Logger	
+	models models.Models
 	
 }
 
@@ -40,7 +42,7 @@ func main(){
 	
 	flag.IntVar(&cfg.port, "port", 80, "server port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "application environment(development|production)")
-	flag.StringVar(&cfg.db.dsn,"dsn", "root@tcp(127.0.0.1:3306)/go_movies_db", "Mysql address connection")
+	flag.StringVar(&cfg.db.dsn,"dsn", "root@tcp(127.0.0.1:3306)/go_movies_db?parseTime=true", "Mysql address connection")
 	flag.Parse()
 	
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
@@ -55,6 +57,7 @@ func main(){
 	app := &application {
 		config : cfg,
 		logger : logger,
+		models : models.NewModels(db),
 	}
 	
 	
