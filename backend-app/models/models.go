@@ -1,6 +1,13 @@
 package models
 
-import "time"
+import (
+	"time"
+	"database/sql"
+)
+
+type Models struct {
+	DB DBModel
+}
 
 type Movie struct {
 	ID int `json:"id"`
