@@ -18,8 +18,6 @@ func (app *application) getOneMovie(w http.ResponseWriter, r *http.Request){
 	}
 	
 	movie, err := app.models.DB.Get(id)
-	app.logger.Print(movie)
-		
 	
 	if err != nil {
 		app.logger.Print(errors.New("Invalid id Parameter"))
