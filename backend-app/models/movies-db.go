@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"context"
 	"time"
+	"fmt"
 )
 
 type DBModel struct {
@@ -57,7 +58,7 @@ func (m *DBModel) Get(id int) (*Movie, error){
 		}
 		
 		// genres = append(genres, mg)
-		genres[mg.ID]=mg.Genre.GenreName
+		genres[mg.GenreID]=mg.Genre.GenreName
 	}
 	
 	movie.MovieGenre = genres;
@@ -65,11 +66,19 @@ func (m *DBModel) Get(id int) (*Movie, error){
 	return &movie, nil
 }
 
-func (m *DBModel) All() ([]*Movie, error){
+func (m *DBModel) All(genre ...int) ([]*Movie, error){
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	
-	rows, err := m.DB.QueryContext(ctx, "SELECT * FROM movies ORDER BY title")
+	where := ""
+	if len(genre) > 0 {
+		where = fmt.Sprintf("WHERE id in (SELECT movie_id FROM movies_genres where genre_id = %d)", genre[0])
+	}
+	
+	query := fmt.Sprintf("SELECT * FROM movies %s ORDER BY title", where)
+	
+	
+	rows, err := m.DB.QueryContext(ctx, query)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +128,7 @@ func (m *DBModel) All() ([]*Movie, error){
 			}
 
 		// 	// genres = append(genres, mg)
-			genres[mg.ID]=mg.Genre.GenreName
+			genres[mg.GenreID]=mg.Genre.GenreName
 			
 		}
 		genreRows.Close()
