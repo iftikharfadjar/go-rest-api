@@ -27,12 +27,10 @@ func (app *application) getOneMovie(w http.ResponseWriter, r *http.Request){
 
 	
 	err = app.writeJSON(w, http.StatusOK, "movie", movie)
-		if err != nil {
-			app.errorJSON(w, err)
+	if err != nil {
+		app.errorJSON(w, err)
 		return
 	}
-	
-	
 }
 
 func (app *application) getAllMovies(w http.ResponseWriter, r *http.Request){
@@ -44,15 +42,57 @@ func (app *application) getAllMovies(w http.ResponseWriter, r *http.Request){
 	
 	err = app.writeJSON(w, http.StatusOK, "movies", movies)
 		if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+}
+
+func (app *application) getAllGenres(w http.ResponseWriter, r *http.Request){
+	genres, err := app.models.DB.GenresAll()
+	
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	
+	err = app.writeJSON(w, http.StatusOK, "genres", genres)
+		if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+	
+}
+
+func (app *application) getAllMoviesByGenre(w http.ResponseWriter, r *http.Request){
+	// params := httprouter.ParamsFromContext(r.Context());
+	
+	// genreID, err := strconv.Atoi(params.ByName("genre_id"))
+	// if err != nil {
+	// 	app.errorJSON(w, err)
+	// 	return
+	// }
+	
+															 
+	movies , err := app.models.DB.All()
+	
+															 
+	err = app.writeJSON(w, http.StatusOK, "movies", movies)
+		if err != nil {
 			app.errorJSON(w, err)
 		return
 	}
+}
+
+func (app *application) moviesByGenre(w http.ResponseWriter, r *http.Request){
 }
 
 func (app *application) deleteMovie(w http.ResponseWriter, r *http.Request){
 }
 
 func (app *application) insertMovie(w http.ResponseWriter, r *http.Request){
+}
+
+func (app *application) editMovie(w http.ResponseWriter, r *http.Request){
 }
 
 func (app *application) updateMovie(w http.ResponseWriter, r *http.Request){
