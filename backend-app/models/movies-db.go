@@ -5,6 +5,7 @@ import (
 	"context"
 	"time"
 	"fmt"
+	"log"
 )
 
 type DBModel struct {
@@ -173,4 +174,32 @@ func (m *DBModel) GenresAll() ([]*Genre, error) {
 	
 	return genres, nil
 	
+}
+
+func (m *DBModel) InsertMovie(movie Movie) error {
+	ctx, cancel := context.WithTimeout(context.Background() , 3*time.Second)
+	
+	defer cancel()
+	
+	query := "INSERT INTO movies (title, description, year, release_date, runtime, rating, mpaa_rating, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)"
+	
+	
+	_, err := m.DB.ExecContext(ctx, query,
+						movie.Title,
+						movie.Description,
+						movie.Year,
+						movie.ReleaseDate,
+						movie.Runtime,
+						movie.Rating,
+						movie.MPAARating,
+						movie.CreatedAt,
+						movie.UpdatedAt,
+						)
+	
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	
+	return nil
 }
