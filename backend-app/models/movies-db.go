@@ -203,3 +203,50 @@ func (m *DBModel) InsertMovie(movie Movie) error {
 	
 	return nil
 }
+
+func (m *DBModel) UpdateMovie(movie Movie) error {
+	ctx, cancel := context.WithTimeout(context.Background() , 3*time.Second)
+	
+	defer cancel()
+	
+	query := "UPDATE movies SET title=?, description=?, year=?, release_date=?, runtime=?, rating=?, mpaa_rating=?, created_at=?, updated_at=? WHERE id=?"
+	
+	
+	_, err := m.DB.ExecContext(ctx, query,
+						movie.Title,
+						movie.Description,
+						movie.Year,
+						movie.ReleaseDate,
+						movie.Runtime,
+						movie.Rating,
+						movie.MPAARating,
+						movie.CreatedAt,
+						movie.UpdatedAt,
+					 	movie.ID,
+						)
+	
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	
+	return nil
+}
+
+func (m *DBModel) DeleteMovie (id int) error {
+	ctx, cancel := context.WithTimeout(context.Background() , 3*time.Second)
+	
+	defer cancel()
+	
+	query := "DELETE FROM movies WHERE id=?"
+	
+	_, err := m.DB.ExecContext(ctx, query,id)
+	
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	
+	return nil
+	
+}
