@@ -9,8 +9,8 @@ import (
 	"time"
 	"database/sql"
 	"context"
-	_ "../../mysql-1.2"
-	"../../models"
+	_ "github.com/go-sql-driver/mysql"
+	"backend/models"
 )
 
 
@@ -21,6 +21,9 @@ type config struct {
 	env string
 	db struct {
 		dsn string 
+	}
+	jwt struct{
+		secret string
 	}
 }
 
@@ -43,6 +46,7 @@ func main(){
 	flag.IntVar(&cfg.port, "port", 80, "server port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "application environment(development|production)")
 	flag.StringVar(&cfg.db.dsn,"dsn", "root@tcp(127.0.0.1:3306)/go_movies_db?parseTime=true", "Mysql address connection")
+	flag.StringVar(&cfg.jwt.secret,"jwt-secret", "2dce505d96a53c5768052ee90f3df2055657518dad489160df9913f66042e160", "secret")
 	flag.Parse()
 	
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)

@@ -2,10 +2,10 @@ package main
 
 import (
 	"net/http"
-	"../../httprouter"
+	"github.com/julienschmidt/httprouter"
 	"strconv"
 	"errors"
-	"../../models"
+	"backend/models"
 	"time"
 	"encoding/json"
 )

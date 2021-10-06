@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-	"../../httprouter"
+	"github.com/julienschmidt/httprouter"
 )
 
 func (app *application) routes() http.Handler {
@@ -10,6 +10,8 @@ func (app *application) routes() http.Handler {
 	router := httprouter.New()
 	
 	router.HandlerFunc(http.MethodGet, "/status", app.statusHandler)
+	
+	router.HandlerFunc(http.MethodPost, "/v1/signin", app.SignIn)
 	
 	router.HandlerFunc(http.MethodGet, "/v1/movie/:id", app.getOneMovie)
 	
