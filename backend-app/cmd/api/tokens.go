@@ -48,7 +48,8 @@ func (app *application) SignIn(w http.ResponseWriter, r *http.Request){
 	claims.Issuer = "mydomain.com"
 	claims.Audiences = []string{"mydomain.com"}
 	
-	jwtBytes, errSign := claims.HMACSign(jwt.HS256, []byte(app.config.jwt.secret))
+	// jwtBytes, errSign := claims.HMACSign(jwt.HS256, []byte(app.config.jwt.secret))
+	jwtBytes, errSign := claims.HMACSign(jwt.HS256, []byte(app.config.env))
 	if errSign != nil {
 		app.errorJSON(w, errors.New("Error Sign"))
 		return
