@@ -1,15 +1,15 @@
 import React, {Component, Fragment} from 'react';
 import { Link} from 'react-router-dom';
 
-export default class Movies extends Component {
+export default class Genres extends Component {
 	state = {
-		movies:[],
+		genres:[],
 		isLoaded:false,
 		error: null
 	};
 	
 	componentDidMount(){
-		fetch("https://backendgo.run-us-west2.goorm.io/v1/movies")
+		fetch("https://backendgo.run-us-west2.goorm.io/v1/genres")
 		// .then((response) => response.json())  
 		.then((response) => {
 			console.log("Status code is ", response.status)
@@ -22,7 +22,7 @@ export default class Movies extends Component {
 		})
 		.then((json) => {
 			this.setState({
-				movies:json.movies,
+				genres:json.genres,
 				isLoaded:true,
 			},
 		 (error) => {
@@ -37,7 +37,8 @@ export default class Movies extends Component {
 	}
 	
 	render() {
-		const {movies,isLoaded, error} = this.state;
+		const {genres,isLoaded, error} = this.state;
+		
 		
 		if (error) {
 			return <div>Error : {error.message}</div>	
@@ -47,14 +48,19 @@ export default class Movies extends Component {
 		}else{
 			return(
 				<Fragment>
-					<h2>Choose a Movie</h2>
+					<h2>Genres</h2>
 					
 					<div class="list-group">
-						{movies.map((m) => (
-								<Link key={m.id} to={`/movie/${m.id}`}  className="list-group-item list-group-item-action">
-									{m.title}
-								</Link>
+						{genres.map((g) => (
+								<Link 
+									key={g.id}
+									className="list-group-item list-group-item-action"
+									to={{
+										pathname: `/genre/${g.id}`,
+										genreName: g.genre_name,
+									}}>{g.genre_name}</Link>
 						))}
+						
 					</div>
 				</Fragment>
 			)

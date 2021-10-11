@@ -1,9 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, 
+import {BrowserRouter as Router, Switch, Route, Link
 				// useParams, 
-				useRouteMatch} from 'react-router-dom';
+				// useRouteMatch
+			 } from 'react-router-dom';
 import Movies from './components/Movies'
 import OneMovie from './components/OneMovie'
+import Genres from './components/Genres'
+import OneGenre from './components/OneGenre'
 
 function App() {
   return (
@@ -29,7 +32,7 @@ function App() {
 								</li>
 								
 								<li className="list-group-item">
-									<Link to="/by-category">Categories</Link>
+									<Link to="/genres">Genres</Link>
 								</li>
 								
 								<li className="list-group-item">
@@ -48,9 +51,12 @@ function App() {
 								<Movies/>
 							</Route>
 						
-							<Route exact path="/by-category">
-								<CategoryPage/>
+							<Route exact path="/genres">
+								<Genres/>
 							</Route>
+							
+							<Route path="/genre/:id" component={OneGenre}/>
+							
 							
 							<Route path="/admin">
 								<Admin/>
@@ -75,27 +81,29 @@ const Home = () => {
 }
 
 
+const Admin = () => {
+	return <h2>Manage Catalogue</h2>
+}
+
+export default App;
+
+// const CategoryPage = () => {
+// 	let {path,url} = useRouteMatch();
+	
+// 	return (
+// 		<div>
+// 			<h2>Category Page</h2>
+// 			<ul>
+// 				<li><Link to={`${path}/comedy`}>{`Comedy ${url}`}</Link></li>
+// 				<li><Link to={`${path}/drama`}>Drama</Link></li>
+// 			</ul>
+// 		</div>
+// 		)
+// }
+
 // const Movie = () => {
 // 	let { id } = useParams();
 // 	return <OneMovie id={}/>
 // }
 
-const Admin = () => {
-	return <h2>Manage Catalogue</h2>
-}
 
-const CategoryPage = () => {
-	let {path,url} = useRouteMatch();
-	
-	return (
-		<div>
-			<h2>Category Page</h2>
-			<ul>
-				<li><Link to={`${path}/comedy`}>{`Comedy ${url}`}</Link></li>
-				<li><Link to={`${path}/drama`}>Drama</Link></li>
-			</ul>
-		</div>
-		)
-}
-
-export default App;

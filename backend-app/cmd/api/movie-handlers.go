@@ -89,9 +89,6 @@ func (app *application) getAllMoviesByGenre(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-func (app *application) moviesByGenre(w http.ResponseWriter, r *http.Request){
-}
-
 
 
 type MoviePayload struct {
