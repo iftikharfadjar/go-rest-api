@@ -1,6 +1,9 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Link, 
+				// useParams, 
+				useRouteMatch} from 'react-router-dom';
 import Movies from './components/Movies'
+import OneMovie from './components/OneMovie'
 
 function App() {
   return (
@@ -39,10 +42,8 @@ function App() {
 					
 					<div className="col-md-10">
 						<Switch>
-							<Route path="/movie/:id">
-								<Movie/>
-							</Route>
-							
+							<Route path="/movie/:id" component={OneMovie} />
+								
 							<Route path="/movies">
 								<Movies/>
 							</Route>
@@ -74,10 +75,10 @@ const Home = () => {
 }
 
 
-const Movie = () => {
-	let { id } = useParams();
-	return <h2>{`movie ${id}`}</h2>
-}
+// const Movie = () => {
+// 	let { id } = useParams();
+// 	return <OneMovie id={}/>
+// }
 
 const Admin = () => {
 	return <h2>Manage Catalogue</h2>

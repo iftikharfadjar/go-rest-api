@@ -5,24 +5,44 @@ export default class Movies extends Component {
 	state = {
 		movies:[],
 		isLoaded:false,
+		error: null
 	};
 	
 	componentDidMount(){
 		fetch("https://backendgo.run-us-west2.goorm.io/v1/movies")
-		.then((response) => response.json())  
+		// .then((response) => response.json())  
+		.then((response) => {
+			console.log("Status code is ", response.status)
+			if (response.status !== "200"){
+				let err  = Error;
+				err.message =  "Invalid response code : " + response.status;
+				this.setState({error:err})
+			}
+			return response.json();
+		})
 		.then((json) => {
 			this.setState({
 				movies:json.movies,
 				isLoaded:true,
-			})
+			},
+		 (error) => {
+				this.setState({
+					isLoaded: true,
+					error
+				})
+			}	
+		 )
 			
 		})
 	}
 	
 	render() {
-		const {movies,isLoaded} = this.state;
+		const {movies,isLoaded, error} = this.state;
 		
-		if(!isLoaded){
+		if (error) {
+			return <div>Error : {error.message}</div>	
+		}
+		else if(!isLoaded){
 			return <p>Loading..</p>
 		}else{
 			return(
@@ -32,7 +52,7 @@ export default class Movies extends Component {
 					<ul>
 						{movies.map((m) => (
 							<li key={m.id}>
-								<Link to={`/movies/${m.id}`}>{m.title}</Link>
+								<Link to={`/movie/${m.id}`}>{m.title}</Link>
 							</li>
 						))}
 						
