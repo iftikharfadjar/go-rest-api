@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import { Link} from 'react-router-dom';
 import './EditMovie.css'
 import {Input, TextArea, Select} from './form-components/form-components'
+import {Alert} from '../ui-components/Alert'
 
 export default class OneGenre extends Component {
 
@@ -27,7 +27,11 @@ export default class OneGenre extends Component {
 			],
 			isLoaded : false,
 			error: null,
-			errors : []
+			errors : [],
+			alert: {
+				type:"d-none",
+				message: ""
+			}
 		}
 		
 		this.handleChange = this.handleChange.bind(this);
@@ -66,6 +70,16 @@ handleSubmit = (evt) => {
 	fetch('https://backendgo.run-us-west2.goorm.io/v1/admin/editmovie', requestOptions)
 	.then(response => response.json())
 	.then(data => {
+		
+		if(data.error){
+			this.setState({
+				alert: {type : "alert-danger", message: data.error.message},
+			});
+		}else{
+			this.setState({
+				alert : { type : "alert-success", message:"Changed saved!!"},
+			})
+		}
 		console.log(data);
 	})
 }
@@ -136,6 +150,10 @@ handleChange = (evt) => {
 			return(
 				<Fragment>
 					<h2>Add/Edit Movie</h2>	
+					<Alert 
+						alertType={this.state.alert.type}
+						alertMessage={this.state.alert.message}>
+					</Alert>
 					<hr/>
 					<form onSubmit={this.handleSubmit}>
 						<input 
@@ -173,9 +191,12 @@ handleChange = (evt) => {
 						<button className="btn btn-primary">Save</button>
 					</form>
 
-					<div className="mt-3">
-						<pre>{JSON.stringify(this.state, null, 3)}</pre>
-					</div>
+					
+					{//for debugging
+					//<div className="mt-3">
+						// <pre>{JSON.stringify(this.state, null, 3)}</pre>
+					//</div>
+					}
 
 				</Fragment>
 				)
