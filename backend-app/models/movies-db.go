@@ -226,6 +226,7 @@ func (m *DBModel) UpdateMovie(movie Movie) error {
 						)
 	
 	if err != nil {
+		log.Println(movie.ReleaseDate)
 		log.Println(err)
 		return err
 	}

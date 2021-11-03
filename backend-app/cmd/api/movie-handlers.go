@@ -124,7 +124,7 @@ func (app *application) editMovie(w http.ResponseWriter, r *http.Request){
 	movie.ID, _ 	= strconv.Atoi(payload.ID)
 	movie.Title = payload.Title
 	movie.Description = payload.Description
-	movie.ReleaseDate,_ = time.Parse("2005-01-02", payload.ReleaseDate)
+	movie.ReleaseDate,_ = time.Parse("2006-01-02", payload.ReleaseDate)
 	movie.Year = movie.ReleaseDate.Year()
 	movie.Runtime , _ = strconv.Atoi(payload.Runtime)
 	movie.Rating , _ = strconv.Atoi(payload.Rating)
