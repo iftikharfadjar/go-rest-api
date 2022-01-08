@@ -1,0 +1,5 @@
+Generate JWT secret
+https://go.dev/play/p/s8KlqJIOWej
+
+Generate Password Hash
+https://go.dev/play/p/uKMMCzJWGsW
