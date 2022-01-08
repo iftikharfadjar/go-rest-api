@@ -70,7 +70,8 @@ handleSubmit = (evt) => {
 		body : JSON.stringify(payload)
 	}
 	
-	fetch('https://backendgo.run-us-west2.goorm.io/v1/admin/editmovie', requestOptions)
+	// fetch('https://backendgo.run-us-west2.goorm.io/v1/admin/editmovie', requestOptions)
+	fetch('http://localhost:700/v1/admin/editmovie', requestOptions)
 	.then(response => response.json())
 	.then(data => {
 		
@@ -101,7 +102,8 @@ handleChange = (evt) => {
 	componentDidMount(){
 		const id = this.props.match.params.id;
 		if (id > 0) {
-			fetch("https://backendgo.run-us-west2.goorm.io/v1/movie/" + id)
+			// fetch("http://backendgo.run-us-west2.goorm.io/v1/movie/" + id)
+			fetch("http://localhost:700/v1/movie/" + id)
 			.then((response) => {
 				
 				if (response.state !== "200"){
@@ -149,7 +151,8 @@ handleChange = (evt) => {
         {
           label: 'Yes',
           onClick: () => {
-							fetch("https://backendgo.run-us-west2.goorm.io/v1/admin/deletemovie/"+this.state.movie.id, {method: "GET"})
+						// fetch("https://backendgo.run-us-west2.goorm.io/v1/admin/deletemovie/"+this.state.movie.id, {method: "GET"})
+						fetch("http://localhost:700/v1/admin/deletemovie/"+this.state.movie.id, {method: "GET"})
 						.then(response => response.json)
 						.then(data => {
 								if(data.error){

@@ -8,7 +8,8 @@ export default class OneMovie extends Component {
 	};
 	
 	componentDidMount(){
-		fetch("https://backendgo.run-us-west2.goorm.io/v1/movie/" + this.props.match.params.id)
+		// fetch("https://backendgo.run-us-west2.goorm.io/v1/movie/" + this.props.match.params.id)
+		fetch("http://localhost:700/v1/movie/" + this.props.match.params.id)
 		// .then((response) => response.json())  
 		.then((response) => {
 			console.log("Status code is ", response.status)

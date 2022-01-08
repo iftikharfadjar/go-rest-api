@@ -9,7 +9,8 @@ export default class Movies extends Component {
 	};
 	
 	componentDidMount(){
-		fetch("https://backendgo.run-us-west2.goorm.io/v1/movies")
+		//fetch("https://backendgo.run-us-west2.goorm.io/v1/movies")
+		fetch("http://localhost:700/v1/movies")
 		// .then((response) => response.json())  
 		.then((response) => {
 			console.log("Status code is ", response.status)

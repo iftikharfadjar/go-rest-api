@@ -9,7 +9,8 @@ export default class Genres extends Component {
 	};
 	
 	componentDidMount(){
-		fetch("https://backendgo.run-us-west2.goorm.io/v1/genres")
+		//fetch("https://backendgo.run-us-west2.goorm.io/v1/genres")
+		fetch("http://localhost:700/v1/genres")
 		// .then((response) => response.json())  
 		.then((response) => {
 			console.log("Status code is ", response.status)

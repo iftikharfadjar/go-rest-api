@@ -10,7 +10,8 @@ export default class OneGenre extends Component {
 	};
 	
 	componentDidMount(){
-		fetch("https://backendgo.run-us-west2.goorm.io/v1/movies/" + this.props.match.params.id)
+		// fetch("https://backendgo.run-us-west2.goorm.io/v1/movies/" + this.props.match.params.id)
+		fetch("http://localhost:700/v1/movies/" + this.props.match.params.id)
 		.then((response) => {
 			console.log("Status code is ", response.status)
 			if (response.status !== "200"){
