@@ -8,6 +8,7 @@ import OneMovie from './components/OneMovie'
 import Genres from './components/Genres'
 import OneGenre from './components/OneGenre'
 import EditMovie from './components/EditMovie'
+import Admin from './components/Admin'
 
 function App() {
   return (
@@ -87,9 +88,6 @@ const Home = () => {
 }
 
 
-const Admin = () => {
-	return <h2>Manage Catalogue</h2>
-}
 
 export default App;
 

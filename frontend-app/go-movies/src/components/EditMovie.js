@@ -76,12 +76,13 @@ handleSubmit = (evt) => {
 	.then(data => {
 		
 		if(data.error){
+			alert(data.error.message);
 			this.setState({
 				alert: {type : "alert-danger", message: data.error.message},
 			});
 		}else{
-			this.setState({
-				alert : { type : "alert-success", message:"Changed saved!!"},
+			this.props.history.push({
+				pathname : "/admin",
 			})
 		}
 		console.log(data);
