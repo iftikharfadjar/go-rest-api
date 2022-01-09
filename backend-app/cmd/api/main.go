@@ -22,9 +22,9 @@ type config struct {
 	db   struct {
 		dsn string
 	}
-	// jwt struct{
-	// 	secret string
-	// }
+	jwt struct {
+		secret string
+	}
 }
 
 type AppStatus struct {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter as Router, Switch, Route, Link
 				// useParams, 
 				// useRouteMatch
@@ -10,11 +10,12 @@ import OneGenre from './components/OneGenre'
 import EditMovie from './components/EditMovie'
 import Admin from './components/Admin'
 
-function App() {
-  return (
-		<Router>
-		 <div className="container">
+class App extends Component {
 
+	render(){
+		return (
+		<Router>
+		  <div className="container">
 				<div className="row">
 					<h1 className="mt-3">Go Watch Movie !!!</h1>
 					<hr className="mb-3"></hr>
@@ -81,6 +82,8 @@ function App() {
 			</div>
 		</Router>
   );
+	}
+  
 }
 
 const Home = () => {
